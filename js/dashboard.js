@@ -58,7 +58,7 @@ class DashboardManager {
                 <i class="bi bi-eye me-2 fs-5"></i>
                 <div>
                     <strong>Demo Mode:</strong> Sample data is preloaded for exploration. Your changes are temporary and will be cleared when the browser/tab is closed.
-                    <br/><br/><strong>Full Version:</strong> Please visit <a href="https://smartsaas.gumroad.com/l/ylusel">here</a>. Exclusive Launch Offer: 75% Off using coupon code PQ47KJQ
+                    <br/><strong>Full Version:</strong> Please visit <a href="https://smartsaas.gumroad.com/l/ylusel">here</a>. Exclusive Launch Offer: 75% Off using coupon code PQ47KJQ
                     <div class="small mt-1">
                         <span class="badge bg-warning text-dark me-1">Demo</span> core features are available for preview. Actions like Connect Folder, Import/Export, and Clear Data are disabled in this demo build.
                     </div>
