@@ -1,0 +1,677 @@
+/* Custom CSS for Financial Management System */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --border-radius: 0.5rem;
+    --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --box-shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Theme: Emerald (green) */
+body.theme-emerald {
+    --primary-color: #0a7d4f;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #c0392b;
+    --warning-color: #f39c12;
+    --info-color: #1abc9c;
+    --light-color: #f6fff9;
+    --dark-color: #1e3d33;
+    /* Emerald-specific surfaces and accents */
+    --surface-0: #f6fff9; /* app background */
+    --surface-1: #ffffff; /* cards/tables */
+    --surface-2: #ecfdf5; /* headers/alt rows */
+    --border-color: #d1e7dd; /* subtle greenish border */
+    --muted-color: #6c757d; /* captions/placeholder */
+    --link-color: #0a7d4f;
+    --link-hover: #086a43;
+    --table-stripe: #f2fbf7;
+    --table-hover: #e9f7f0;
+}
+
+/* Theme: Sunset (orange/pink) */
+body.theme-sunset {
+    --primary-color: #e67e22;
+    --secondary-color: #6c757d;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --warning-color: #f1c40f;
+    --info-color: #fd7e14;
+    --light-color: #fff7f0;
+    --dark-color: #3b2e2a;
+    /* Sunset-specific surfaces and accents */
+    --surface-0: #fff7f0; /* app background */
+    --surface-1: #ffffff; /* cards/tables */
+    --surface-2: #fff0e6; /* headers/alt rows */
+    --border-color: #f1d5bf; /* warm border */
+    --muted-color: #6c757d; /* captions/placeholder */
+    --link-color: #e67e22;
+    --link-hover: #cf6d13;
+    --table-stripe: #fff3e8;
+    --table-hover: #ffe9d6;
+}
+
+/* Theme: Slate (cool/dark) */
+body.theme-slate {
+    --primary-color: #4f6bd7; /* refined indigo */
+    --secondary-color: #64748b; /* slate-500 */
+    --success-color: #22c55e; /* green-500 */
+    --danger-color: #ef4444; /* red-500 */
+    --warning-color: #f59e0b; /* amber-500 */
+    --info-color: #06b6d4; /* cyan-500 */
+    --light-color: #0f172a; /* app background */
+    --dark-color: #e2e8f0; /* base text */
+    /* Slate-specific surfaces and accents */
+    --surface-0: #0f172a; /* darkest */
+    --surface-1: #1b2336; /* card/table */
+    --surface-2: #676c749a; /* header/alt rows */
+    --border-color: #334155; /* separators */
+    --muted-color: #9aa6b2; /* captions/placeholder */
+    --link-color: #93c5fd;
+    --link-hover: #bfdbfe;
+    --table-stripe: #222b3a;
+    --table-hover: #2a3445;
+}
+
+/* Dark surfaces and controls for Slate theme */
+body.theme-slate .card,
+body.theme-slate .modal-content,
+body.theme-slate .table {
+    background-color: var(--surface-1);
+    color: var(--dark-color);
+}
+
+body.theme-slate .card-header {
+    background-color: var(--surface-2);
+    border-bottom: 1px solid var(--border-color);
+}
+
+body.theme-slate .form-control,
+body.theme-slate .form-select,
+body.theme-slate textarea,
+body.theme-slate input[type="date"],
+body.theme-slate input[type="number"],
+body.theme-slate input[type="text"] {
+    background-color: var(--surface-0);
+    color: var(--dark-color);
+    border-color: var(--border-color);
+}
+
+body.theme-slate .form-control::placeholder {
+    color: var(--muted-color);
+}
+
+body.theme-slate .form-text {
+    color: var(--muted-color) !important;
+}
+
+/* Typography tweaks for Slate */
+body.theme-slate h1,
+body.theme-slate h2,
+body.theme-slate h3,
+body.theme-slate h4,
+body.theme-slate h5,
+body.theme-slate h6,
+body.theme-slate .card-title,
+body.theme-slate .modal-title {
+    color: var(--dark-color);
+}
+
+body.theme-slate .text-muted {
+    color: var(--muted-color) !important;
+}
+
+body.theme-slate a { color: var(--link-color); }
+body.theme-slate a:hover { color: var(--link-hover); }
+
+/* Tables in Slate */
+body.theme-slate .table {
+    color: var(--dark-color);
+    border-color: var(--border-color);
+}
+
+body.theme-slate .table thead { background-color: var(--surface-2); }
+
+body.theme-slate .table thead th {
+    color: #e2e8f0; /* slate-200 */
+    border-color: var(--border-color);
+}
+
+body.theme-slate .table tbody tr { border-color: var(--border-color); }
+
+body.theme-slate .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: var(--table-stripe);
+}
+
+body.theme-slate .table-hover tbody tr:hover {
+    background-color: var(--table-hover);
+}
+
+/* Make sure cell backgrounds follow row backgrounds in Slate */
+body.theme-slate .table tbody tr > * {
+    background-color: transparent; /* let row bg show through */
+    color: var(--dark-color);
+    border-color: var(--border-color);
+}
+
+body.theme-slate .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: var(--table-stripe) !important;
+}
+
+body.theme-slate .table-hover > tbody > tr:hover > * {
+    background-color: var(--table-hover) !important;
+}
+
+/* Card header title visibility in Slate */
+body.theme-slate .card-header,
+body.theme-slate .card-header .card-title {
+    color: var(--dark-color);
+}
+
+/* Make generic light backgrounds readable in Slate */
+body.theme-slate .bg-light {
+    background-color: var(--surface-2) !important;
+    color: var(--dark-color) !important;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    padding-top: 56px;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Navigation Enhancements */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+}
+
+/* Make Bootstrap primary background follow theme */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.navbar.bg-primary {
+    background-image: linear-gradient(135deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 70%, black 30%));
+}
+
+/* Bootstrap theme bindings: ensure components follow --primary-color */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: color-mix(in srgb, var(--primary-color) 90%, black 10%) !important;
+    border-color: color-mix(in srgb, var(--primary-color) 90%, black 10%) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.text-primary, .link-primary { color: var(--primary-color) !important; }
+.border-primary { border-color: var(--primary-color) !important; }
+.badge.bg-primary { background-color: var(--primary-color) !important; }
+
+/* Tabs & Pills */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: inherit !important; /* keep readable text color */
+    border-color: var(--primary-color) var(--primary-color) transparent !important; /* accent border */
+}
+.nav-tabs .nav-link:hover {
+    border-color: var(--primary-color) var(--primary-color) transparent !important;
+}
+
+/* Make inactive tab links use body text color for visibility */
+.nav-tabs .nav-link {
+    color: inherit;
+}
+
+/* Slate-specific tab appearance: ensure readable selected tab */
+body.theme-slate .nav-tabs {
+    border-bottom-color: var(--border-color);
+}
+body.theme-slate .nav-tabs .nav-link {
+    color: var(--dark-color);
+    border-color: transparent;
+    background-color: transparent;
+}
+body.theme-slate .nav-tabs .nav-link:hover {
+    border-color: var(--border-color) var(--border-color) transparent;
+}
+body.theme-slate .nav-tabs .nav-link.active,
+body.theme-slate .nav-tabs .nav-item.show .nav-link {
+    color: #fff !important; /* readable on primary */
+    background-color: var(--primary-color); /* match primary */
+    border-color: var(--primary-color) var(--primary-color) transparent !important;
+}
+
+/* List Group bindings */
+.list-group-item {
+    background-color: #fff;
+}
+body.theme-slate .list-group-item {
+    background-color: var(--surface-1);
+    color: var(--dark-color);
+    border-color: var(--border-color);
+}
+body.theme-slate .list-group-item.list-group-item-action:hover,
+body.theme-slate .list-group-item:hover {
+    background-color: var(--surface-2);
+}
+.list-group-item.active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+/* Forms */
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.progress-bar.bg-primary { background-color: var(--primary-color) !important; }
+
+/* Card Enhancements */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    box-shadow: var(--box-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: var(--light-color);
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Summary Cards */
+.summary-card {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    border: none;
+}
+
+.summary-card.income {
+    background: linear-gradient(135deg, var(--success-color), #146c43);
+}
+
+.summary-card.expense {
+    background: linear-gradient(135deg, var(--danger-color), #b02a37);
+}
+
+.summary-card.balance {
+    background: linear-gradient(135deg, var(--info-color), #0aa2c0);
+}
+
+.summary-card.debt {
+    background: linear-gradient(135deg, var(--warning-color), #e0a800);
+    color: var(--dark-color);
+}
+
+.summary-card .card-body {
+    padding: 1.5rem;
+}
+
+.summary-card .display-6 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.summary-card .text-muted {
+    opacity: 0.8;
+}
+
+/* Tables */
+.table {
+    background-color: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.table thead th {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 1rem 0.75rem;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+/* Buttons */
+.btn {
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color), #146c43);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), #b02a37);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color), #e0a800);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, var(--info-color), #0aa2c0);
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: var(--border-radius);
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Tabs */
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    color: var(--secondary-color);
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    margin-right: 0.25rem;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Charts */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin: 1rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table-responsive {
+        border-radius: var(--border-radius);
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn-group .btn {
+        width: auto;
+        margin-bottom: 0;
+    }
+    
+    .summary-card .display-6 {
+        font-size: 1.5rem;
+    }
+    
+    #customDateRange {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    #customDateRange input {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .card-header h5 {
+        font-size: 1rem;
+    }
+    
+    .table {
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Status Indicators */
+.status-positive {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.status-negative {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+.status-neutral {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Print Styles */
+@media print {
+    .navbar, .btn, .nav-tabs {
+        display: none !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    body {
+        padding-top: 0;
+    }
+}
+
+/* Back-to-Top Floating Button */
+.back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1040;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: var(--box-shadow-lg);
+}
+
+.back-to-top.show {
+    display: inline-flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top:hover { transform: translateY(-2px); }
+
+/* Demo Mode Indicators */
+.demo-badge {
+    background-color: var(--warning-color) !important;
+    color: #111 !important;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.demo-ribbon {
+    position: fixed;
+    top: 72px;
+    right: 16px;
+    z-index: 1060;
+    background: var(--warning-color);
+    color: #111;
+    padding: 6px 10px;
+    border-radius: 999px;
+    box-shadow: var(--box-shadow-lg);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.95;
+}

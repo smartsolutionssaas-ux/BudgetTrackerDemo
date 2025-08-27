@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Management System</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#dashboard">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                Financial Manager
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dashboard" data-page="dashboard">
+                            <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories" data-page="categories">
+                            <i class="bi bi-tags me-1"></i>Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#planner" data-page="planner">
+                            <i class="bi bi-calendar-check me-1"></i>Planner
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#transactions" data-page="transactions">
+                            <i class="bi bi-receipt me-1"></i>Transactions
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="settings">
+                            <i class="bi bi-gear me-2"></i>Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#help" data-page="help">
+                            <i class="bi bi-question-circle me-1"></i>Help
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Data Location / Storage Status -->
+                <div class="d-flex align-items-center gap-2 ms-auto">
+                    <span id="data-storage-label" class="badge bg-light text-dark" title="Where your data is saved">In-Memory</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-fluid pt-3">
+
+
+        <!-- Categories Page -->
+        <div id="categories-page" class="page-content d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-tags me-2"></i>Categories Management</h2>
+            </div>
+            
+            <!-- Category Tabs -->
+            <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="currencies-tab" data-bs-toggle="tab" data-bs-target="#currencies" type="button">
+                        <i class="bi bi-currency-exchange me-1"></i>Currencies
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="income-tab" data-bs-toggle="tab" data-bs-target="#income" type="button">
+                        <i class="bi bi-arrow-up-circle me-1"></i>Income
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="expenses-tab" data-bs-toggle="tab" data-bs-target="#expenses" type="button">
+                        <i class="bi bi-arrow-down-circle me-1"></i>Expenses
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="accounts-tab" data-bs-toggle="tab" data-bs-target="#accounts" type="button">
+                        <i class="bi bi-bank me-1"></i>Accounts
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="debt-tab" data-bs-toggle="tab" data-bs-target="#debt" type="button">
+                        <i class="bi bi-credit-card me-1"></i>Debt Pay-Off
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="investments-tab" data-bs-toggle="tab" data-bs-target="#investments" type="button">
+                        <i class="bi bi-graph-up me-1"></i>Investments
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content -->
+            <div class="tab-content mt-3" id="categoryTabContent">
+                <!-- Content will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settings-page" class="page-content d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-gear me-2"></i>Application Settings</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Planner Settings -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-calendar-check me-2"></i>Planner Settings
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="plannerStartDate" class="form-label">Planning Start Date</label>
+                                    <input type="date" class="form-control" id="plannerStartDate">
+                                    <div class="form-text">The start date for your financial planning period.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="plannerCurrency" class="form-label">Default Currency</label>
+                                    <select class="form-select" id="plannerCurrency">
+                                        <!-- Options will be populated from categories -->
+                                    </select>
+                                    <div class="form-text">Currency used throughout the application.</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="updatePlannerSettings()">
+                                <i class="bi bi-check-lg me-2"></i>Save Planner Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Settings -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-palette me-2"></i>Appearance
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="themeSelect" class="form-label">Theme</label>
+                                    <select id="themeSelect" class="form-select" onchange="window.handleThemeChange(this.value)">
+                                        <option value="default">Default</option>
+                                        <option value="emerald">Emerald</option>
+                                        <option value="sunset">Sunset</option>
+                                        <option value="slate">Slate</option>
+                                    </select>
+                                    <div class="form-text">Choose a color theme for the app.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Export / Import and Danger Zone removed for Demo Mode -->
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Settings Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="card-title mb-0">
+                                <i class="bi bi-info-circle me-2"></i>Settings Information
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <h6>Planner Settings</h6>
+                            <p class="small text-muted">Configure your financial planning preferences. Changes will apply across all planner sections and affect currency display throughout the application.</p>
+
+                            <div class="alert alert-info">
+                                <i class="bi bi-lightbulb me-2"></i>
+                                <strong>Tip:</strong> Currency changes will automatically refresh all pages to show amounts in the selected currency.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planner Page -->
+        <div id="planner-page" class="page-content d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-calendar-check me-2"></i>Financial Planner</h2>
+            </div>
+            
+            <!-- Planner Tabs -->
+            <ul class="nav nav-tabs" id="plannerTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="current-holding-tab" data-bs-toggle="tab" data-bs-target="#current-holding" type="button">
+                        <i class="bi bi-wallet2 me-1"></i>Current Holding
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="current-outstanding-tab" data-bs-toggle="tab" data-bs-target="#current-outstanding" type="button">
+                        <i class="bi bi-exclamation-triangle me-1"></i>Current Outstanding
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="expected-income-tab" data-bs-toggle="tab" data-bs-target="#expected-income" type="button">
+                        <i class="bi bi-cash-coin me-1"></i>Expected Income
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="planned-expenses-tab" data-bs-toggle="tab" data-bs-target="#planned-expenses" type="button">
+                        <i class="bi bi-calendar-event me-1"></i>Planned Expenses
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="planned-investments-tab" data-bs-toggle="tab" data-bs-target="#planned-investments" type="button">
+                        <i class="bi bi-graph-up me-1"></i>Planned Investments
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Planner Tab Content -->
+            <div class="tab-content mt-3" id="plannerTabContent">
+                <!-- Content will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Transactions Page -->
+        <div id="transactions-page" class="page-content d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-receipt me-2"></i>Transactions</h2>
+
+                <!-- Date Filter Controls -->
+                <div class="d-flex align-items-center">
+                    <select class="form-select form-select-sm me-2" id="dateFilter" style="width: auto;">
+                        <option value="all" selected>All</option>
+                        <option value="current-year">Current Year</option>
+                        <option value="last-year">Last Year</option>
+                        <option value="current-month">Current Month</option>
+                        <option value="last-month">Last Month</option>
+                        <option value="custom">Date Range</option>
+                    </select>
+
+                    <div id="customDateRange" class="d-none">
+                        <input type="date" class="form-control form-control-sm me-1" id="startDate">
+                        <input type="date" class="form-control form-control-sm" id="endDate">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transaction Tabs -->
+            <ul class="nav nav-tabs" id="transactionTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button">
+                        <i class="bi bi-list-ul me-1"></i>Transactions
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="debt-payoff-tab" data-bs-toggle="tab" data-bs-target="#debt-payoff" type="button">
+                        <i class="bi bi-arrow-left-right me-1"></i>Debt Pay-Off
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="transaction-investments-tab" data-bs-toggle="tab" data-bs-target="#transaction-investments" type="button">
+                        <i class="bi bi-graph-up me-1"></i>Investments
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Transaction Tab Content -->
+            <div class="tab-content mt-3" id="transactionTabContent">
+                <!-- Transactions Tab -->
+                <div class="tab-pane fade show active" id="transactions" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Transactions</h5>
+                                    <button class="btn btn-primary btn-sm" onclick="transactionsManager.showAddModal('Transactions')">
+                                        <i class="bi bi-plus-lg me-1"></i>Add Transaction
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="transactions-list" class="table-responsive">
+                                        <!-- Content will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="transactions-summary">
+                                        <!-- Summary will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debt Pay-Off Tab -->
+                <div class="tab-pane fade" id="debt-payoff" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Debt Pay-Off</h5>
+                                    <button class="btn btn-primary btn-sm" onclick="transactionsManager.showAddModal('Debt Pay-Off')">
+                                        <i class="bi bi-plus-lg me-1"></i>Add Payment
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="debt-payoff-list" class="table-responsive">
+                                        <!-- Content will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="debt-payoff-summary">
+                                        <!-- Summary will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investments Tab -->
+                <div class="tab-pane fade" id="transaction-investments" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Investments</h5>
+                                    <button class="btn btn-primary btn-sm" onclick="transactionsManager.showAddModal('Investments')">
+                                        <i class="bi bi-plus-lg me-1"></i>Add Investment
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="transaction-investments-list" class="table-responsive">
+                                        <!-- Content will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="transaction-investments-summary">
+                                        <!-- Summary will be dynamically generated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Modals -->
+            <!-- Add Transaction Modal -->
+            <div class="modal fade" id="transactions-modal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="transactions-modal-title">Add Transaction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="transactions-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="transaction-date" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="transaction-date" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="transaction-amount" class="form-label">Amount</label>
+                                        <input type="number" class="form-control" id="transaction-amount" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="transaction-type" class="form-label">Type</label>
+                                        <select class="form-select" id="transaction-type" required onchange="transactionsManager.updateCategoryOptions()">
+                                            <option value="">Select Type</option>
+                                            <option value="Income">Income</option>
+                                            <option value="Expenses">Expenses</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="transaction-category" class="form-label">Category</label>
+                                        <select class="form-select" id="transaction-category" required>
+                                            <option value="">Select Category</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transaction-account" class="form-label">Account</label>
+                                    <select class="form-select" id="transaction-account" required>
+                                        <option value="">Select Account</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transaction-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="transaction-description" rows="2" placeholder="Optional description"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="transactionsManager.saveTransaction('Transactions')">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Debt Payment Modal -->
+            <div class="modal fade" id="debt-payoff-modal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debt-payoff-modal-title">Add Debt Payment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="debt-payoff-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="debt-date" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="debt-date" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="debt-amount" class="form-label">Amount</label>
+                                        <input type="number" class="form-control" id="debt-amount" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="debt-from-account" class="form-label">From Account</label>
+                                        <select class="form-select" id="debt-from-account" required>
+                                            <option value="">Select Account</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="debt-to-account" class="form-label">To Account</label>
+                                        <select class="form-select" id="debt-to-account" required>
+                                            <option value="">Select Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="debt-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="debt-description" rows="2" placeholder="Optional description"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="transactionsManager.saveTransaction('Debt Pay-Off')">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Investment Modal -->
+            <div class="modal fade" id="transaction-investments-modal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="transaction-investments-modal-title">Add Investment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="transaction-investments-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="investment-date" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="investment-date" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="investment-amount" class="form-label">Amount</label>
+                                        <input type="number" class="form-control" id="investment-amount" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="investment-type" class="form-label">Investment Type</label>
+                                        <select class="form-select" id="investment-type" required>
+                                            <option value="">Select Account</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="investment-account" class="form-label">Account</label>
+                                        <select class="form-select" id="investment-account" required>
+                                            <option value="">Select Account</option>
+                                            <!-- Accounts will be populated dynamically -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="investment-description" class="form-label">Description</label>
+                                        <input type="text" class="form-control" id="investment-description" placeholder="e.g., Apple Inc. (AAPL) - 10 shares">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="transactionsManager.saveTransaction('Investments')">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page-content">
+            <div id="dashboard-content">
+                <!-- Content will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Help Page -->
+        <div id="help-page" class="page-content d-none">
+            <div id="help-top"></div>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="card h-100 position-sticky" style="top: 88px;">
+                        <div class="card-header">
+                            <h6 class="mb-0"><i class="bi bi-list-check me-2"></i>Contents</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                <a href="#help-getting-started" class="list-group-item list-group-item-action">Getting Started</a>
+                                <a href="#help-dashboard" class="list-group-item list-group-item-action">Dashboard</a>
+                                <a href="#help-categories" class="list-group-item list-group-item-action">Categories</a>
+                                <a href="#help-planner" class="list-group-item list-group-item-action">Planner</a>
+                                <a href="#help-transactions" class="list-group-item list-group-item-action">Transactions</a>
+                                <a href="#help-debt" class="list-group-item list-group-item-action">Debt Pay-Off</a>
+                                <a href="#help-investments" class="list-group-item list-group-item-action">Investments</a>
+                                <a href="#help-settings" class="list-group-item list-group-item-action">Settings & Theme</a>
+                                <a href="#help-storage" class="list-group-item list-group-item-action">Data Storage & Folders</a>
+                                <a href="#help-import-export" class="list-group-item list-group-item-action">Import/Export</a>
+                                <a href="#help-tips" class="list-group-item list-group-item-action">Tips</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="bi bi-eye me-2"></i>Demo Mode</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning mb-3" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                This build runs in <strong>Demo Mode</strong>. Sample data is preloaded and <strong>all changes are temporary</strong>. Data is cleared when the browser/tab is closed.
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center gap-3">
+                                <div>
+                                    <span class="badge bg-warning text-dark me-1">Demo</span> Available in this demo
+                                </div>
+                                <div>
+                                    <span class="badge bg-secondary me-1">Full</span> Available only in the full app
+                                </div>
+                            </div>
+                            <div class="small text-muted mt-2">
+                                Features like <em>Connect Folder</em>, <em>Import/Export</em>, and <em>Clear Data</em> are disabled in this demo for safety.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-getting-started" class="mb-0"><i class="bi bi-rocket-takeoff me-2"></i>Getting Started <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <ol>
+                                <li>Open <strong>Settings</strong> → set <strong>Planning Start Date</strong> and <strong>Default Currency</strong>.</li>
+                                <li>Pick a <strong>Theme</strong> to suit your environment (Emerald/Sunset/Slate).</li>
+                                <li>Visit <strong>Categories</strong> → add Income, Expenses, Accounts, and Currencies.</li>
+                                <li>Optionally configure <strong>Planner</strong> entries for the planning period.</li>
+                                <li>Use <strong>Transactions</strong> to start recording real activity.</li>
+                            </ol>
+                            
+                            <h6 class="mt-3">First‑time storage setup (Quick Start)</h6>
+                            <ul>
+                                <li><strong>Recommended (Connect a Folder):</strong> Click the <em>Connect Folder</em> button in the top navbar and choose a folder. The status badge will turn green and show your folder name, and the button will hide. Requires Chrome/Edge and serving over <em>https</em> or <em>http://localhost</em>.</li>
+                                <li><strong>No folder yet (Demo only):</strong> You can stay <em>In‑Memory</em> and click <em>Populate Sample Data</em> to explore how the app looks and behaves. <strong>This is for informational/demo purposes only — your changes are not persistent until you connect a folder.</strong></li>
+                                <li><strong>Safari/Firefox:</strong> The app uses <em>Manual Import/Export</em>. Use <em>Export Workbook</em> regularly and import the last exported data to further update and Export again.</li>
+                                <li><strong>On first connect:</strong> An empty folder is seeded with JSON files (and sample <em>Categories</em> for convenience). If your planner had no <em>Start Date</em>, it’s set to today and saved.</li>
+                            </ul>
+                            <div class="alert alert-warning py-2" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <strong>Important:</strong> For real use and data persistence, always <em>Connect Folder</em>. Sample data is a demo only.
+                            </div>
+
+                            <h6 class="mt-3">Next steps after connecting</h6>
+                            <ul>
+                                <li><strong>Settings:</strong> Confirm <em>Planning Start Date</em> and <em>Currency</em> (Start Date defaults to today if it was blank).</li>
+                                <li><strong>Categories:</strong> Review or adjust the seeded categories to match your needs.</li>
+                                <li><strong>Transactions:</strong> Add your first transaction and verify it writes to your chosen folder.</li>
+                                <li><strong>Dashboard:</strong> Review KPIs and charts; adjust date filters as needed.</li>
+                                <li><strong>Backups:</strong> Use <em>Export Workbook</em> anytime from Settings.</li>
+                            </ul>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <h6 class="mb-2">Do</h6>
+                                    <ul class="mb-0">
+                                        <li>Set the correct planning start date before adding dated records.</li>
+                                        <li>Keep categories organized (they power dropdowns).</li>
+                                        <li>Export a backup before large imports.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="mb-2">Don't</h6>
+                                    <ul class="mb-0">
+                                        <li>Change planning start date after heavy data entry without reviewing conflicts.</li>
+                                        <li>Mix currencies without setting the app currency in Settings.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-dashboard" class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Dashboard <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Review KPIs and charts driven by Transactions and Planner.</li>
+                                <li>Switch theme to enhance readability.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Filter date ranges from the <strong>Transactions</strong> page controls.</li>
+                                <li>Hover charts for tooltips; check summaries for month-to-date.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Reconcile with bank statements monthly.</li>
+                                <li><strong>Don't:</strong> Edit dashboard elements directly; manage data in source pages.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-categories" class="mb-0"><i class="bi bi-tags me-2"></i>Categories <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Add/Edit/Delete items in each tab (Income, Expenses, Accounts, Debt, Investments).</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Use the <strong>Add</strong> button; fill required fields; save.</li>
+                                <li>Click edit/delete icons next to an item for maintenance.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Keep names consistent and unambiguous.</li>
+                                <li><strong>Don't:</strong> Delete categories that are in use without reviewing their transactions.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-planner" class="mb-0"><i class="bi bi-calendar-check me-2"></i>Planner <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Set baseline: Current Holding and Current Outstanding.</li>
+                                <li>Plan: Expected Income, Planned Expenses, Planned Investments.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Open the tab, click <strong>Add</strong>, enter date/value within the planning range.</li>
+                                <li>Use consistent descriptions for clarity.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Keep dates within Settings planning window.</li>
+                                <li><strong>Don't:</strong> Duplicate items across Planner and Transactions (Planner is for planning, Transactions are actuals).</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-transactions" class="mb-0"><i class="bi bi-receipt me-2"></i>Transactions <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Add income/expense records; assign category and account.</li>
+                                <li>Filter transactions by preset ranges or custom range.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Click <strong>Add Transaction</strong>, enter date, amount, type, category, account; save.</li>
+                                <li>Use the date filter dropdown and "Date Range" for custom periods.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Use precise descriptions; reconcile regularly.</li>
+                                <li><strong>Don't:</strong> Backdate outside the planning window; validation will adjust or warn.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-debt" class="mb-0"><i class="bi bi-credit-card me-2"></i>Debt Pay-Off <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Record transfers/payments to reduce debt balances.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Open Debt Pay-Off tab, click <strong>Add Payment</strong>, select source and destination accounts, set amount/date; save.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Align with actual bank movements.</li>
+                                <li><strong>Don't:</strong> Use negative amounts; enter direction via accounts instead.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-investments" class="mb-0"><i class="bi bi-graph-up me-2"></i>Investments <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Record buys/sells, contributions, or transfers related to investments.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Click <strong>Add Investment</strong>, enter date, amount, type, account, and description.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Note instrument identifiers in description.</li>
+                                <li><strong>Don't:</strong> Mix fees and principal in one entry; itemize for clarity.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-settings" class="mb-0"><i class="bi bi-gear me-2"></i>Settings & Theme <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Configure planning window and currency.</li>
+                                <li>Switch themes (Default/Emerald/Sunset/Slate).</li>
+                                <li>Export or Import data; clear non-category data if needed.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Pick start date and currency, then Save. App refreshes data views.</li>
+                                <li>Use theme dropdown to apply styles instantly.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Export regularly as backups.</li>
+                                <li><strong>Don't:</strong> Change planning start date without resolving out-of-range records (a modal will guide).</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-storage" class="mb-0"><i class="bi bi-folder2-open me-2"></i>Data Storage & Folders <span class="badge bg-secondary ms-2">Full</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="mb-2">How it works</h6>
+                            <ul>
+                                <li><strong>Initial load:</strong> The app starts with empty data. Use <em>Populate Sample Data</em> in the navbar to load examples from the built-in <code>sampledata/</code> files. If a folder is connected and JSON files exist there, those take precedence and will load instead.</li>
+                                <li><strong>Where data is saved:</strong> Use the navbar <em>Connect Folder</em> button to pick a folder (Chrome/Edge). The status badge shows your current storage: <em>In‑Memory</em>, a connected folder name, or <em>Manual Import/Export</em> for fallback browsers.</li>
+                                <li><strong>Status badge and button:</strong> When a folder is connected, the badge shows the folder name in green and the <em>Connect Folder</em> button is hidden. When disconnected or in-memory, the badge shows <em>In‑Memory</em> and the button is visible.</li>
+                                <li><strong>Who manages the folder:</strong> You choose and control the folder on your computer. The app never uploads data; everything stays local.</li>
+                            </ul>
+                            <div class="alert alert-info py-2" role="alert">
+                                <i class="bi bi-info-circle me-2"></i>
+                                <strong>Demo vs. real data:</strong> <em>Populate Sample Data</em> is for exploration. <strong>Connect a folder</strong> to keep your data between sessions.
+                            </div>
+
+                            <h6 class="mt-3 mb-2">If no folder is connected</h6>
+                            <ul>
+                                <li><strong>Chrome/Edge:</strong> The app runs <em>In‑Memory</em>. Changes are temporary until you connect a folder. Export an Excel backup anytime from Settings.</li>
+                                <li><strong>Safari/Firefox:</strong> The app uses <em>Manual Import/Export</em>.</li>
+                            </ul>
+
+                            <h6 class="mt-3 mb-2">When data is written to the connected folder</h6>
+                            <ul>
+                                <li><strong>Automatic on change:</strong> After connecting, any add/edit/delete writes JSON files in the chosen folder.</li>
+                                <li><strong>Empty new folder seeding:</strong> If you connect a brand-new empty folder, the app will create JSON files with empty schemas and copy full <em>Categories</em> from samples for convenience.</li>
+                                <li><strong>Planner Start Date default:</strong> If your planner had no <em>Start Date</em>, it will be automatically set to today the first time you connect a folder and saved there.</li>
+                                <li><strong>Current in‑memory data:</strong> If you already populated or entered data, it will be written on the next save. For an immediate write, make a small edit or Import to save all datasets.</li>
+                            </ul>
+
+                            <h6 class="mt-3 mb-2">Changing the folder later</h6>
+                            <ul>
+                                <li><strong>Switch back to In‑Memory:</strong> Click <em>Populate Sample Data</em> in the navbar. This disconnects the folder, switches storage to in‑memory, and re‑shows the <em>Connect Folder</em> button.</li>
+                                <li><strong>Connect a different folder:</strong> After switching to in‑memory, click <em>Connect Folder</em> and pick a new folder. If the new folder already contains JSON files, those will load and become your active data.</li>
+                            </ul>
+
+                            <h6 class="mt-3 mb-2">Troubleshooting and recovery</h6>
+                            <ul class="mb-0">
+                                <li><strong>Secure context required:</strong> File System Access works only on supported browsers (Chrome/Edge) when the app is served over <em>https</em> or <em>http://localhost</em>. If unavailable, you’ll see a warning and stay in <em>In‑Memory</em> or <em>Manual Import/Export</em> mode.</li>
+                                <li><strong>Folder access canceled/unavailable:</strong> The app stays in its current mode. Use <em>Export Workbook</em> to back up.</li>
+                                <li><strong>Write errors:</strong> You’ll remain in-memory; changes won’t be lost immediately on-screen. Try reconnecting the folder or exporting, then refresh.</li>
+                                <li><strong>Best practice:</strong> Periodically export the Excel workbook as a backup, especially before large imports.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 id="help-import-export" class="mb-0"><i class="bi bi-file-earmark-spreadsheet me-2"></i>Import/Export <span class="badge bg-secondary ms-2">Full</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Actions</h6>
+                            <ul>
+                                <li>Export all app data to Excel.</li>
+                                <li>Import from a compatible workbook to replace current data.</li>
+                            </ul>
+                            <h6 class="mt-3">How to</h6>
+                            <ul>
+                                <li>Click <strong>Export Workbook</strong> to download.</li>
+                                <li>Click <strong>Import Workbook</strong>, choose file, confirm replacement.</li>
+                            </ul>
+                            <h6 class="mt-3">Do/Don't</h6>
+                            <ul class="mb-0">
+                                <li><strong>Do:</strong> Validate dates and formats before import.</li>
+                                <li><strong>Don't:</strong> Interrupt the app while import is running.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 id="help-tips" class="mb-0"><i class="bi bi-lightbulb me-2"></i>Tips <span class="badge bg-warning text-dark ms-2">Demo</span></h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Use themed tabs and contrast for clarity; Slate for low light.</li>
+                                <li>Keep Categories tidy; they drive options across Planner and Transactions.</li>
+                                <li>Use summaries to reconcile monthly statements quickly.</li>
+                                <li>Leverage pagination and filters to focus on a period.</li>
+                            </ul>
+                            <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="#help-top"><i class="bi bi-arrow-up"></i> Top</a></div>
+                        </div>
+                    </div>
+                    <a href="#help-top" class="btn btn-primary back-to-top"><i class="bi bi-arrow-up-circle me-2"></i>Back to Top</a>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer class="container-fluid py-3 border-top mt-4 small text-muted">
+        <div class="d-flex justify-content-between align-items-center">
+            <span>© 2025 Smart Solutions</span>
+            <div class="d-flex gap-3">
+                <a href="EULA.md" class="link-secondary" target="_blank" rel="noopener">Commercial EULA</a>
+                <a href="THIRD_PARTY_NOTICES.md" class="link-secondary" target="_blank" rel="noopener">Third‑Party Notices</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- SheetJS (xlsx) for export/import -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Data Files -->
+    <script src="sampledata/categories.js"></script>
+    <script src="sampledata/planner.js"></script>
+    <script src="sampledata/transactions.js"></script>
+    <script src="sampledata/debts-payoff.js"></script>
+    <script src="sampledata/investments.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/storage.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/categories.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/planner.js"></script>
+    <script src="js/transactions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
